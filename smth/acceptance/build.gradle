@@ -1,0 +1,45 @@
+buildscript {
+    ext {
+        serenity_version = "2.0.34"
+        log4j2_version = "2.9.1"
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:$serenity_version"
+        classpath "net.serenity-bdd:serenity-emailer:$serenity_version"
+    }
+}
+
+plugins {
+    id "java"
+    id "idea"
+}
+
+apply plugin: "net.serenity-bdd.aggregator"
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile "net.serenity-bdd:serenity-core:$serenity_version"
+    compile "net.serenity-bdd:serenity-cucumber:1.9.23"
+
+    compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j2_version"
+    compile "org.apache.logging.log4j:log4j-core:$log4j2_version"
+}
+
+test {
+    ignoreFailures = true
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = "full"
+    }
+    systemProperties = System.properties as Map<String, ?>
+}
+
+serenity {
+    reports = ["email"]
+}
