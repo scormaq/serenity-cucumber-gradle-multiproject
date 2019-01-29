@@ -1,5 +1,5 @@
 plugins {
-   id 'base'
+    id 'base'
 }
 
 subprojects {
@@ -13,4 +13,10 @@ subprojects {
 allprojects {
     version = '0.1.0'
     group = 'com.github.scormaq'
+}
+
+clean {
+    doFirst {
+        delete 'target'
+    }
 }
